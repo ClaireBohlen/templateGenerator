@@ -8,12 +8,17 @@ const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+console.log("heloo");
+
+
 const render = require("./lib/htmlRenderer");
+
+let employeeArray = []
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-const questions = [
+inquirer.prompt( [
     {
         type: "input",
         message: "What is the name of the employee?",
@@ -35,23 +40,29 @@ const questions = [
         name: "employeeType",
         choices: [{ name: "Manager", value: 0 }, { name: "Engineer", value: 1 }, { name: "Intern", value: 2}]
     }
+
+    ])
+    .then((answers) => {
+        if (answers.employeeType === 0 ){
+            console.log("Manager");
+        }
+        else if (responses.employeeType === 1){
+            console.log ("Engineer");
+        }
+        else if (responses.employeeType === 2){
+            console.log ("Intern");
+        }
+       
+           
+    })
     
-    //   .then((responses) => {
-    //         if (responses.employeeType === 0) {
-    //             console.log("Manger");
-    //         }
-    //         else if (responses.employeeType === 1) {
-    //             console.log("Enginner");
-    //         }
-    //         else if (responses.employeeType === 2) {
-    //             console.log("Intern");
-    //         }
-            
-    // })
+   
+
+    
 
 
 
-]
+
 
 
 
