@@ -12,5 +12,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClaireBohlen/templateGenerator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ClaireBohlen/templateGenerator/issues"
+  },
+  "homepage": "https://github.com/ClaireBohlen/templateGenerator#readme"
 }
