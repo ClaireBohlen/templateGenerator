@@ -4,25 +4,36 @@ class Employee {  // The first class is an Employee parent class with the follow
     constructor(name, id, email){
         this.name = name; // name
         this.id = id; // id
-        this.email = email; // email
+        this.email = email; 
+        this.role = "Employee";
 
     }
 
-    getName(){   // getName()
+    getName(){  
+        return this.name;    // getName()
 
     }
 
-    getId(){     // getId()
+    getId(){    
+        return this.id;
+         // getId()
 
     }
 
-    getEmail(){    // getEmail()
+    getEmail(){   
+        return this.email;
+         // getEmail()
 
     }
 
-    getRole(){     // getRole() // Returns 'Employee'
+    getRole(){   
+        return this.role;
+          // getRole() // Returns 'Employee'
 
     }
 }
+
+module.exports = Employee;
+
 
 
