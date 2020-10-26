@@ -18,52 +18,171 @@ let employeeArray = []
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-inquirer.prompt( [
-    {
-        type: "input",
-        message: "What is the name of the employee?",
-        name: "employeeName"
-    },
-    {
-        type: "input",
-        message: "What is the employee's ID",
-        name: "employeeId"
-    },
-    {
-        type: "input",
-        message: "What is the employee's email?",
-        name: "employeeEmail"
-    },
-    {
-        type: "list",
-        message: "What is the employee's title?",
-        name: "employeeType",
-        choices: [{ name: "Manager", value: 0 }, { name: "Engineer", value: 1 }, { name: "Intern", value: 2}]
-    }
-
-    ])
-    .then((answers) => {
-        if (answers.employeeType === 0 ){
-            console.log("Manager");
-        }
-        else if (responses.employeeType === 1){
-            console.log ("Engineer");
-        }
-        else if (responses.employeeType === 2){
-            console.log ("Intern");
-        }
-       
-           
-    })
+function askQuestions (){
     
+    inquirer.prompt( [
+        {
+            type: "input",
+            message: "What is the name of the employee?",
+            name: "employeeName"
+        },
+        {
+            type: "input",
+            message: "What is the employee's ID",
+            name: "employeeId"
+        },
+        {
+            type: "input",
+            message: "What is the employee's email?",
+            name: "employeeEmail"
+        },
+        {
+            type: "list",
+            message: "What is the employee's title?",
+            name: "employeeType",
+            choices: [{ name: "Manager", value: 0 }, { name: "Engineer", value: 1 }, { name: "Intern", value: 2}]
+        }
+
+        ])
+        .then((answers) => {
+            if (answers.employeeType === 0 ){
+                console.log("Manager");
+                
+                inquirer.prompt([
+                    {
+                    type:"input",
+                    message: "What is your office number?",
+                    name: "officeNumber"
+                    },
+                    {
+                    type:"confirm",
+                    message: "Would you like to add another employee to the schedule?",
+                    name: "addEmployee"
+                    },
+                
+
+                ])
+
+                if (answers.addEmployee = true){
+                    askQuestions();
+                }
+            } 
+            else if (responses.employeeType === 1){
+                console.log ("Engineer");
+
+                inquirer.prompt([
+                    {
+                    type: "input",
+                    message: "What is the employee's Github username?",
+                    name: "gitHub"
+                    },
+                    {
+                    type: "confirm",
+                    message: "Would you like to add another employee to the schedule?",
+                    name: "addEmployee2"
+                        }
+                ])
+
+                // if (answers.addEmploee2 = true)
+                // questions();
+            }
+            else if (responses.employeeType === 2){
+                console.log ("Intern");
+            }
+        
+            
+        }) 
+}
+
+askQuestions();
+
+
+
+
+
+    
+    // inquirer.prompt( [
+    //     {
+    //         type: "input",
+    //         message: "What is the name of the employee?",
+    //         name: "employeeName"
+    //     },
+    //     {
+    //         type: "input",
+    //         message: "What is the employee's ID",
+    //         name: "employeeId"
+    //     },
+    //     {
+    //         type: "input",
+    //         message: "What is the employee's email?",
+    //         name: "employeeEmail"
+    //     },
+    //     {
+    //         type: "list",
+    //         message: "What is the employee's title?",
+    //         name: "employeeType",
+    //         choices: [{ name: "Manager", value: 0 }, { name: "Engineer", value: 1 }, { name: "Intern", value: 2}]
+    //     }
+
+    //     ])
+    //     .then((answers) => {
+    //         if (answers.employeeType === 0 ){
+    //             console.log("Manager");
+                
+    //             inquirer.prompt([
+    //                 {
+    //                 type:"input",
+    //                 message: "What is your office number?",
+    //                 name: "officeNumber"
+    //                 },
+    //                 {
+    //                 type:"confirm",
+    //                 message: "Would you like to add another employee to the schedule?",
+    //                 name: "addEmployee"
+    //                 },
+                
+
+    //             ])
+
+    //             if (answers.addEmploee = true){
+    //                 // askQuestions();
+    //             }
+    //         } 
+    //         else if (responses.employeeType === 1){
+    //             console.log ("Engineer");
+
+    //             inquirer.prompt([
+    //                 {
+    //                 type: "input",
+    //                 message: "What is the employee's Github username?",
+    //                 name: "gitHub"
+    //                 },
+    //                 {
+    //                 type: "confirm",
+    //                 message: "Would you like to add another employee to the schedule?",
+    //                 name: "addEmployee2"
+    //                     }
+    //             ])
+
+    //             // if (answers.addEmploee2 = true)
+    //             // questions();
+    //         }
+    //         else if (responses.employeeType === 2){
+    //             console.log ("Intern");
+    //         }
+        
+            
+    //     }) 
+        
    
 
     
 
 
 
+   
 
-
+    
 
 
 // After the user has input all employees desired, call the `render` function (required
