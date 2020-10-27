@@ -8,18 +8,11 @@ const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-console.log("heloo");
-
-
 const render = require("./lib/htmlRenderer");
 
 let employeeArray = []
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-
-function askQuestions (){
-    
+function askQuestions () {
     inquirer.prompt( [
         {
             type: "input",
@@ -44,30 +37,46 @@ function askQuestions (){
         }
 
         ])
-        .then((answers) => {
-            if (answers.employeeType === 0 ){
-                console.log("Manager");
-                
+
+        .then((answers)=> {
+            if (answers.employeeType === 0){
+                // console.log("Manager");
                 inquirer.prompt([
                     {
                     type:"input",
                     message: "What is your office number?",
                     name: "officeNumber"
                     },
+                    
+                    
                     {
-                    type:"confirm",
-                    message: "Would you like to add another employee to the schedule?",
-                    name: "addEmployee"
-                    },
+                    type: "list",
+                    message: "Would you like to add another employee?",
+                    name: "addEmployee",
+                    choices: [{ name: "Yes", value: 0 }, { name: "No", value: 1 }]
+                    }
                 
 
-                ])
+                ]) .then((answers)=>{
+                    if(answers.addEmployee === 0){
+                        console.log("add Emp");
+                        askQuestions();
+                    } else {
+                        // console.log("Finished");
+                        fs.writeFile("team.html", render(employeeArray), error => {
+                            if (error){
+                                // console.log ("ERROR");
+                            } else {
+                                // console.log ("Sucsess");
+                            }
+                        })
+                    }
+                })
+                
 
-                if (answers.addEmployee = true){
-                    askQuestions();
-                }
-            } 
-            else if (responses.employeeType === 1){
+            
+
+            } else if (responses.employeeType === 1){
                 console.log ("Engineer");
 
                 inquirer.prompt([
@@ -86,14 +95,33 @@ function askQuestions (){
                 // if (answers.addEmploee2 = true)
                 // questions();
             }
+
             else if (responses.employeeType === 2){
                 console.log ("Intern");
+                inquirer.prompt([
+                    {
+                    type: "input",
+                    message: "What school does this intern attend?",
+                    name: "school"
+                    },
+                    {
+                    type: "confirm",
+                    message: "Would you like to add another employee to the schedule?",
+                    name: "addEmployee3"
+                    }
+                ])
             }
-        
             
-        }) 
-}
+        })
 
+        
+                
+
+
+
+
+
+}
 askQuestions();
 
 
@@ -101,78 +129,7 @@ askQuestions();
 
 
     
-    // inquirer.prompt( [
-    //     {
-    //         type: "input",
-    //         message: "What is the name of the employee?",
-    //         name: "employeeName"
-    //     },
-    //     {
-    //         type: "input",
-    //         message: "What is the employee's ID",
-    //         name: "employeeId"
-    //     },
-    //     {
-    //         type: "input",
-    //         message: "What is the employee's email?",
-    //         name: "employeeEmail"
-    //     },
-    //     {
-    //         type: "list",
-    //         message: "What is the employee's title?",
-    //         name: "employeeType",
-    //         choices: [{ name: "Manager", value: 0 }, { name: "Engineer", value: 1 }, { name: "Intern", value: 2}]
-    //     }
-
-    //     ])
-    //     .then((answers) => {
-    //         if (answers.employeeType === 0 ){
-    //             console.log("Manager");
-                
-    //             inquirer.prompt([
-    //                 {
-    //                 type:"input",
-    //                 message: "What is your office number?",
-    //                 name: "officeNumber"
-    //                 },
-    //                 {
-    //                 type:"confirm",
-    //                 message: "Would you like to add another employee to the schedule?",
-    //                 name: "addEmployee"
-    //                 },
-                
-
-    //             ])
-
-    //             if (answers.addEmploee = true){
-    //                 // askQuestions();
-    //             }
-    //         } 
-    //         else if (responses.employeeType === 1){
-    //             console.log ("Engineer");
-
-    //             inquirer.prompt([
-    //                 {
-    //                 type: "input",
-    //                 message: "What is the employee's Github username?",
-    //                 name: "gitHub"
-    //                 },
-    //                 {
-    //                 type: "confirm",
-    //                 message: "Would you like to add another employee to the schedule?",
-    //                 name: "addEmployee2"
-    //                     }
-    //             ])
-
-    //             // if (answers.addEmploee2 = true)
-    //             // questions();
-    //         }
-    //         else if (responses.employeeType === 2){
-    //             console.log ("Intern");
-    //         }
-        
-            
-    //     }) 
+    
         
    
 
