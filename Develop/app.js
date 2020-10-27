@@ -17,17 +17,17 @@ function askQuestions () {
         {
             type: "input",
             message: "What is the name of the employee?",
-            name: "employeeName"
+            name: "name"
         },
         {
             type: "input",
             message: "What is the employee's ID",
-            name: "employeeId"
+            name: "id"
         },
         {
             type: "input",
             message: "What is the employee's email?",
-            name: "employeeEmail"
+            name: "email"
         },
         {
             type: "list",
@@ -58,6 +58,8 @@ function askQuestions () {
                 
 
                 ]) .then((answers)=>{
+                    const newManager = new Manager (answers.name, answers.id, answers.email, answers.officeNumber);
+                    employeeArray.push(newManager);
                     if(answers.addEmployee === 0){
                         console.log("add Emp");
                         askQuestions();
@@ -76,7 +78,7 @@ function askQuestions () {
 
             
 
-            } else if (responses.employeeType === 1){
+            } if (answers.employeeType === 1){
                 console.log ("Engineer");
 
                 inquirer.prompt([
@@ -86,17 +88,32 @@ function askQuestions () {
                     name: "gitHub"
                     },
                     {
-                    type: "confirm",
-                    message: "Would you like to add another employee to the schedule?",
-                    name: "addEmployee2"
-                        }
+                    type: "list",
+                    message: "Would you like to add another employee?",
+                    name: "addEmployee",
+                    choices: [{ name: "Yes", value: 0 }, { name: "No", value: 1 }]
+                    }
                 ])
+                .then ((answers) => {
+                    if(answers.addEmployee === 0){
+                        console.log ("ADD EMP");
+                        askQuestions();
+                    } else {
+                        fs.writeFile("team.html", render(employeeArray), error => {
+                            if (error){
+                                console.log("error");
+                            } else {
+                                console.log("succsess");
+                            }
+                        })
+                    }
+                })
 
                 // if (answers.addEmploee2 = true)
                 // questions();
             }
 
-            else if (responses.employeeType === 2){
+            else if (answers.employeeType === 2){
                 console.log ("Intern");
                 inquirer.prompt([
                     {
@@ -105,11 +122,27 @@ function askQuestions () {
                     name: "school"
                     },
                     {
-                    type: "confirm",
-                    message: "Would you like to add another employee to the schedule?",
-                    name: "addEmployee3"
+                    type: "list",
+                    message: "Would you like to add another employee?",
+                    name: "addEmployee",
+                    choices: [{ name: "Yes", value: 0 }, { name: "No", value: 1 }]
                     }
                 ])
+                .then((answers) => {
+                    if (answers.addEmployee === 0){
+                        console.log("add");
+                        askQuestions();
+                    } else {
+                        fs.writeFile("team.html", render(employeeArray), error => {
+                            if (error){
+                                console.log ("EERR");
+                            } else {
+                                console.log ("YES");
+                            }
+                        })
+                    }
+                })
+
             }
             
         })
@@ -123,6 +156,9 @@ function askQuestions () {
 
 }
 askQuestions();
+
+// const newEmployee = new Intern(response2.name, response2.id, response2.email, response3.school);
+// empArr.push(newEmployee);
 
 
 
