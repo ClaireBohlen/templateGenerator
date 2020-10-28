@@ -5,15 +5,19 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+//Require all packages
+
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+//empty array to store data from user
 let employeeArray = []
 
+//Inquirer warpped in one function to call function when user selects to add a new employee 
 function askQuestions () {
-    inquirer.prompt( [
+    inquirer.prompt( [  //first set of questions that apply to all types of employees 
         {
             type: "input",
             message: "What is the name of the employee?",
@@ -34,12 +38,12 @@ function askQuestions () {
             message: "What is the employee's title?",
             name: "employeeType",
             choices: [{ name: "Manager", value: 0 }, { name: "Engineer", value: 1 }, { name: "Intern", value: 2}]
-        }
+        }  //using values so that I can compare answers below
 
         ])
 
         .then((answers)=> {
-            if (answers.employeeType === 0){
+            if (answers.employeeType === 0){  // if the user selects manager the following wlll prompt the user 
                 // console.log("Manager");
                 inquirer.prompt([
                     {
@@ -59,14 +63,14 @@ function askQuestions () {
 
                 ]) .then((answers)=>{
                     const newManager = new Manager (answers.name, answers.id, answers.email, answers.officeNumber);
-                    employeeArray.push(newManager);
+                    employeeArray.push(newManager); //storing the users input into the manager class
                     if(answers.addEmployee === 0){
-                        console.log("add Emp");
+                        console.log("add Emp"); // asking the user if they would like to add another employee
                         askQuestions();
                     } else {
                         // console.log("Finished");
-                        render(employeeArray);
-                        fs.writeFile("team.html", render(employeeArray), error => {
+                        render(employeeArray); // if finished the information will be stored in the empty array
+                        fs.writeFile("team.html", render(employeeArray), error => { // writing the html file
                             if (error){
                                 // console.log ("ERROR");
                             } else {
@@ -79,7 +83,7 @@ function askQuestions () {
 
             
 
-            } if (answers.employeeType === 1){
+            } if (answers.employeeType === 1){ // if the employee is an engineer 
                 console.log ("Engineer");
 
                 inquirer.prompt([
@@ -113,8 +117,7 @@ function askQuestions () {
                     }
                 })
 
-                // if (answers.addEmploee2 = true)
-                // questions();
+                
             }
 
             else if (answers.employeeType === 2){
@@ -162,11 +165,9 @@ function askQuestions () {
 
 
 }
-askQuestions();
+askQuestions(); // calling the function 
 
 
-// const newEmployee = new Intern(response2.name, response2.id, response2.email, response3.school);
-// empArr.push(newEmployee);
 
 
 
@@ -186,22 +187,4 @@ askQuestions();
     
 
 
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
 
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
