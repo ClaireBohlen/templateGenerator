@@ -65,6 +65,7 @@ function askQuestions () {
                         askQuestions();
                     } else {
                         // console.log("Finished");
+                        render(employeeArray);
                         fs.writeFile("team.html", render(employeeArray), error => {
                             if (error){
                                 // console.log ("ERROR");
@@ -95,10 +96,13 @@ function askQuestions () {
                     }
                 ])
                 .then ((answers) => {
+                    const newEngineer = new Engineer (answers.name, answers.id, answers.email,  answers.gitHub);
+                    employeeArray.push(newEngineer);
                     if(answers.addEmployee === 0){
                         console.log ("ADD EMP");
                         askQuestions();
                     } else {
+                        render(employeeArray);
                         fs.writeFile("team.html", render(employeeArray), error => {
                             if (error){
                                 console.log("error");
@@ -129,10 +133,13 @@ function askQuestions () {
                     }
                 ])
                 .then((answers) => {
+                    const newIntern = new Intern (answers.name, answers.id, answers.email,  answers.school);
+                    employeeArray.push(newIntern);
                     if (answers.addEmployee === 0){
                         console.log("add");
                         askQuestions();
                     } else {
+                        render(employeeArray);
                         fs.writeFile("team.html", render(employeeArray), error => {
                             if (error){
                                 console.log ("EERR");
@@ -156,6 +163,7 @@ function askQuestions () {
 
 }
 askQuestions();
+
 
 // const newEmployee = new Intern(response2.name, response2.id, response2.email, response3.school);
 // empArr.push(newEmployee);
